@@ -135,6 +135,17 @@
     .stat-strip .stat .num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; color: var(--accent-bright); }
     .stat-strip .stat .lbl { font-size: .82rem; color: var(--tertiary-fg); letter-spacing: 0.05em; text-transform: uppercase; }
 
+    /* Device showcase */
+    .showcase { padding: 4px 0 30px; }
+    .showcase .container { display: flex; justify-content: center; }
+    .device {
+      position: relative; width: 300px; max-width: 80vw; padding: 12px;
+      background: linear-gradient(160deg, #232a45, #12162b);
+      border-radius: 46px; border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow), 0 0 70px var(--accent-glow);
+    }
+    .device img { display: block; width: 100%; border-radius: 34px; }
+
     section { padding: 72px 0; }
     .section-head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
     .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 14px; color: var(--fg); }
@@ -212,6 +223,14 @@
       </div>
     </div>
   </header>
+
+  <section class="showcase" aria-label="Nightshelf on iPhone">
+    <div class="container">
+      <div class="device">
+        <img src="screenshot.jpg" alt="The Nightshelf home screen on iPhone — a nighttime library with 'Continue' shelf, fairy tales, and myths &amp; legends.">
+      </div>
+    </div>
+  </section>
 
   <section id="features">
     <div class="container">
