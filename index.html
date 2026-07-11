@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0C0F1A">
+  <title>Nightshelf — Your evening reading companion</title>
+  <meta name="description" content="Nightshelf is a cozy iOS reading companion: a beautiful library, gentle discovery, reading stats, and recommendations tuned to your taste. Made for quiet evenings.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://drvanus.github.io/nightshelf-site/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Nightshelf — Your evening reading companion">
+  <meta property="og:description" content="A cozy library, gentle discovery, reading stats, and recommendations tuned to your taste. Made for quiet evenings.">
+  <meta property="og:url" content="https://drvanus.github.io/nightshelf-site/">
+  <meta property="og:site_name" content="Nightshelf">
+  <meta property="og:image" content="https://drvanus.github.io/nightshelf-site/app-icon.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nightshelf — Your evening reading companion">
+  <meta name="twitter:description" content="A cozy library, gentle discovery, and recommendations tuned to your taste.">
+  <meta name="twitter:image" content="https://drvanus.github.io/nightshelf-site/app-icon.png">
+
+  <link rel="icon" type="image/png" href="app-icon.png">
+  <link rel="apple-touch-icon" href="app-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0C0F1A;             /* deep night-blue */
+      --bg-2: #12162447;
+      --bg-solid-2: #121624;
+      --surface: #161B2C;
+      --card: #171D30;
+      --card-soft: #1E2540;
+      --fg: #F1EDE4;             /* warm cream */
+      --muted-fg: #B9B4C4;
+      --tertiary-fg: #7E7A8E;
+      --accent: #E8B15C;         /* warm lamplight amber */
+      --accent-bright: #F6C877;
+      --accent-deep: #C68B36;
+      --lilac: #9A8CD6;          /* dusk accent */
+      --rose: #D98C97;
+      --border: rgba(241,237,228,0.10);
+      --border-strong: rgba(241,237,228,0.18);
+      --accent-glow: rgba(232,177,92,0.14);
+      --radius: 0.9rem;
+      --radius-lg: 1.35rem;
+      --shadow: 0 22px 60px rgba(0,0,0,0.5);
+    }
+
+    html { scroll-behavior: smooth; background: var(--bg); color-scheme: dark; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Warm lamplight glow over the night */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 65% 50% at 15% -5%, rgba(232,177,92,0.14), transparent 60%),
+        radial-gradient(ellipse 60% 45% at 90% 5%, rgba(154,140,214,0.12), transparent 65%),
+        radial-gradient(ellipse 80% 55% at 50% 110%, rgba(217,140,151,0.06), transparent 72%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    h1, h2, h3, .display { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.01em; }
+
+    a { color: var(--accent-bright); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--accent); }
+
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+    /* NAV */
+    nav.site {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(12,15,26,0.78);
+      backdrop-filter: saturate(160%) blur(16px);
+      -webkit-backdrop-filter: saturate(160%) blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav.site .container { display: flex; align-items: center; justify-content: space-between; padding: 13px 24px; }
+    nav.site .brand { display: flex; align-items: center; gap: 12px; font-family: 'Fraunces', serif; font-weight: 700; color: var(--fg); font-size: 1.25rem; }
+    nav.site .brand img { width: 34px; height: 34px; border-radius: 9px; box-shadow: 0 0 0 1px var(--border-strong); }
+    nav.site .links { display: flex; gap: 26px; align-items: center; }
+    nav.site .links a { color: var(--muted-fg); font-weight: 600; font-size: .95rem; }
+    nav.site .links a:hover { color: var(--accent-bright); }
+    @media (max-width: 680px) { nav.site .links a:not(.btn) { display: none; } }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(180deg, var(--accent-bright), var(--accent-deep));
+      color: #241703; font-weight: 700; padding: 11px 22px; border-radius: 999px; font-size: .95rem;
+      box-shadow: 0 6px 20px rgba(232,177,92,0.26); border: 1px solid rgba(255,255,255,0.12);
+      transition: transform .15s, box-shadow .2s;
+    }
+    .btn:hover { color: #241703; transform: translateY(-1px); box-shadow: 0 10px 30px rgba(232,177,92,0.38); }
+    .btn.ghost { background: transparent; color: var(--accent-bright); border: 1px solid var(--border-strong); box-shadow: none; }
+    .btn.ghost:hover { background: var(--accent-glow); }
+
+    /* HERO */
+    header.hero { padding: 84px 0 72px; text-align: center; }
+    .hero .kicker {
+      display: inline-block; font-weight: 700; font-size: .78rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--accent); padding: 6px 16px;
+      border: 1px solid var(--border-strong); border-radius: 999px; margin-bottom: 26px; background: var(--accent-glow);
+    }
+    .hero img.crest { width: 122px; height: 122px; border-radius: 28px; margin: 0 auto 30px; display: block; box-shadow: var(--shadow), 0 0 0 1px var(--border-strong); }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.1rem); line-height: 1.06; font-weight: 700;
+      background: linear-gradient(180deg, #FBF6EA 0%, var(--accent-bright) 78%, var(--accent-deep) 100%);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 22px;
+    }
+    .hero p.sub { font-size: clamp(1.05rem, 2.4vw, 1.35rem); color: var(--muted-fg); max-width: 620px; margin: 0 auto 36px; }
+    .hero .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .hero .stat-strip {
+      display: flex; gap: 44px; justify-content: center; flex-wrap: wrap;
+      margin-top: 58px; padding-top: 30px; border-top: 1px solid var(--border);
+      max-width: 620px; margin: 58px auto 0;
+    }
+    .stat-strip .stat .num { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 700; color: var(--accent-bright); }
+    .stat-strip .stat .lbl { font-size: .82rem; color: var(--tertiary-fg); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    section { padding: 72px 0; }
+    .section-head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
+    .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 14px; color: var(--fg); }
+    .section-head p { color: var(--muted-fg); font-size: 1.08rem; }
+
+    .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    @media (max-width: 760px) { .features { grid-template-columns: 1fr; } }
+    .feature {
+      background: linear-gradient(180deg, var(--card), var(--bg-solid-2));
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 30px 28px; transition: transform .2s, border-color .2s, box-shadow .2s;
+    }
+    .feature:hover { transform: translateY(-3px); border-color: var(--border-strong); box-shadow: var(--shadow); }
+    .feature .ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: var(--accent-glow); border: 1px solid var(--border-strong); margin-bottom: 18px; font-size: 1.5rem; }
+    .feature h3 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 9px; color: var(--fg); }
+    .feature p { color: var(--muted-fg); font-size: 1rem; }
+
+    /* Reading ritual strip */
+    .ritual { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 700px) { .ritual { grid-template-columns: 1fr; } }
+    .step {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 26px 22px; text-align: center;
+    }
+    .step .n { font-family: 'Fraunces', serif; font-size: 1.4rem; color: var(--accent); display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-strong); margin-bottom: 14px; }
+    .step h4 { font-family: 'Fraunces', serif; font-size: 1.12rem; margin-bottom: 6px; color: var(--fg); }
+    .step p { font-size: .95rem; color: var(--muted-fg); }
+
+    .cta-band {
+      text-align: center; background:
+        radial-gradient(ellipse 60% 120% at 50% 0%, var(--accent-glow), transparent 70%),
+        linear-gradient(180deg, var(--bg-solid-2), var(--bg));
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 60px 30px; margin: 20px 0;
+    }
+    .cta-band h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 14px; }
+    .cta-band p { color: var(--muted-fg); max-width: 480px; margin: 0 auto 28px; font-size: 1.08rem; }
+
+    footer.site { border-top: 1px solid var(--border); padding: 44px 0; margin-top: 40px; }
+    footer.site .container { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+    footer.site .brand { display: flex; align-items: center; gap: 10px; font-family: 'Fraunces', serif; color: var(--muted-fg); font-weight: 700; }
+    footer.site .brand img { width: 28px; height: 28px; border-radius: 7px; }
+    footer.site .flinks { display: flex; gap: 22px; }
+    footer.site .flinks a { color: var(--tertiary-fg); font-size: .92rem; }
+    footer.site .flinks a:hover { color: var(--accent-bright); }
+    footer.site .copy { color: var(--tertiary-fg); font-size: .85rem; width: 100%; text-align: center; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <nav class="site">
+    <div class="container">
+      <div class="brand"><img src="app-icon.png" alt="Nightshelf icon"> Nightshelf</div>
+      <div class="links">
+        <a href="#features">Features</a>
+        <a href="#ritual">How it works</a>
+        <a href="#get" class="btn ghost">Coming to iOS</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <span class="kicker">Reading Companion · iOS</span>
+      <img src="app-icon.png" alt="Nightshelf" class="crest">
+      <h1>Your evening reading companion</h1>
+      <p class="sub">Nightshelf is a calm home for your books. Keep a beautiful library, discover your next read, and watch your reading habit grow — one quiet evening at a time.</p>
+      <div class="cta-row">
+        <a href="#get" class="btn">Get Nightshelf</a>
+        <a href="#features" class="btn ghost">Take a look</a>
+      </div>
+      <div class="stat-strip">
+        <div class="stat"><div class="num">∞</div><div class="lbl">Your library</div></div>
+        <div class="stat"><div class="num">Nightly</div><div class="lbl">Reading streaks</div></div>
+        <div class="stat"><div class="num">For you</div><div class="lbl">Recommendations</div></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="container">
+      <div class="section-head">
+        <h2>Everything for a good reading night</h2>
+        <p>Simple, warm, and unhurried — the way reading should feel.</p>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <div class="ic">📚</div>
+          <h3>Your Library</h3>
+          <p>Every book you're reading, finished, and dreaming about — organized on beautiful shelves. Track progress, add notes, and pick up right where you left off.</p>
+        </div>
+        <div class="feature">
+          <div class="ic">🔭</div>
+          <h3>Discover</h3>
+          <p>Gentle, curated discovery instead of an endless feed. Browse by mood and genre to find the book that fits tonight, not just this month.</p>
+        </div>
+        <div class="feature">
+          <div class="ic">📈</div>
+          <h3>Reading Stats</h3>
+          <p>See your streaks, pages, and finished books in a warm, motivating view. Small numbers that gently nudge you back to the page.</p>
+        </div>
+        <div class="feature">
+          <div class="ic">✨</div>
+          <h3>Personalized Recommendations</h3>
+          <p>Recommendations that actually learn your taste. The more you read, the better Nightshelf gets at knowing what you'll love next.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ritual" style="padding-top:0;">
+    <div class="container">
+      <div class="section-head">
+        <h2>A little ritual, every night</h2>
+        <p>Nightshelf is built around the quiet minutes before sleep.</p>
+      </div>
+      <div class="ritual">
+        <div class="step"><div class="n">1</div><h4>Open your shelf</h4><p>Your current reads waiting exactly where you left them.</p></div>
+        <div class="step"><div class="n">2</div><h4>Read a while</h4><p>Log your progress and jot a thought or two.</p></div>
+        <div class="step"><div class="n">3</div><h4>Line up tomorrow</h4><p>A fresh recommendation for when you're ready for the next one.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="get">
+    <div class="container">
+      <div class="cta-band">
+        <h2>Turn the page tonight</h2>
+        <p>Nightshelf is coming to iPhone and iPad. Bring your books home to a shelf that's yours.</p>
+        <div class="cta-row" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a href="#" class="btn">Coming to the App Store</a>
+          <a href="privacy.html" class="btn ghost">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site">
+    <div class="container">
+      <div class="brand"><img src="app-icon.png" alt="Nightshelf icon"> Nightshelf</div>
+      <div class="flinks">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="#features">Features</a>
+      </div>
+      <div class="copy">© 2026 Nightshelf. Made for quiet evenings and good books.</div>
+    </div>
+  </footer>
+</body>
+</html>
