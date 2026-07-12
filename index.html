@@ -147,6 +147,24 @@
     }
     .device img { display: block; width: 100%; border-radius: 34px; }
 
+    /* Screenshot gallery */
+    .gallery-row {
+      display: flex; gap: 24px; overflow-x: auto; padding: 6px 4px 22px;
+      scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .gallery-row::-webkit-scrollbar { display: none; }
+    .shot { flex: 0 0 auto; width: 220px; scroll-snap-align: center; text-align: center; }
+    .shot .frame {
+      padding: 9px; border-radius: 34px;
+      background: linear-gradient(160deg, #232a45, #12162b);
+      border: 1px solid var(--border-strong);
+      box-shadow: var(--shadow), 0 0 46px var(--accent-glow);
+    }
+    .shot .frame img { display: block; width: 100%; border-radius: 26px; }
+    .shot .cap { margin-top: 15px; font-size: .92rem; color: var(--muted-fg); font-weight: 600; }
+    @media (max-width: 640px) { .shot { width: 190px; } }
+
     section { padding: 72px 0; }
     .section-head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
     .section-head h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin-bottom: 14px; color: var(--fg); }
@@ -201,6 +219,7 @@
     <div class="container">
       <div class="brand"><img src="app-icon.png" alt="Nightshelf icon"> Nightshelf</div>
       <div class="links">
+        <a href="#screens">Screens</a>
         <a href="#features">Features</a>
         <a href="#ritual">How it works</a>
         <a href="#get" class="btn ghost">Coming to iOS</a>
@@ -230,6 +249,22 @@
     <div class="container">
       <div class="device">
         <img src="screenshot.jpg" alt="The Nightshelf home screen on iPhone — a nighttime library with 'Continue' shelf, fairy tales, and myths &amp; legends.">
+      </div>
+    </div>
+  </section>
+
+  <section id="screens" aria-label="Nightshelf screenshots">
+    <div class="container">
+      <div class="section-head">
+        <h2>A closer look</h2>
+        <p>Read it, hear it, and drift off — Nightshelf, screen by screen.</p>
+      </div>
+      <div class="gallery-row">
+        <figure class="shot"><div class="frame"><img src="shots/home.jpg" alt="The Nightshelf home screen — a nighttime library with a Continue shelf, fairy tales, and myths and legends." loading="lazy"></div><figcaption class="cap">A shelf for the night</figcaption></figure>
+        <figure class="shot"><div class="frame"><img src="shots/story.jpg" alt="The Nightshelf bedtime-story composer — pick a setting and tone, then write a calm original story." loading="lazy"></div><figcaption class="cap">Conjure a bedtime story</figcaption></figure>
+        <figure class="shot"><div class="frame"><img src="shots/reader.jpg" alt="The Nightshelf reader playing The Wind in the Willows aloud, with a sleep-timer that fades the narration out." loading="lazy"></div><figcaption class="cap">Read along, or listen</figcaption></figure>
+        <figure class="shot"><div class="frame"><img src="shots/voice.jpg" alt="The Nightshelf voice picker — six warm narrators like Nova, Fable, and Onyx to read each story." loading="lazy"></div><figcaption class="cap">Six warm narrators</figcaption></figure>
+        <figure class="shot"><div class="frame"><img src="shots/ambient.jpg" alt="The Nightshelf ambient-sound picker — rain, fireplace, ocean, and more to layer under any book." loading="lazy"></div><figcaption class="cap">Ambient sound underneath</figcaption></figure>
       </div>
     </div>
   </section>
