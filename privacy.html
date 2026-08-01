@@ -81,8 +81,9 @@
 
     <h2>What leaves your device, and why</h2>
     <ul>
-      <li><strong>Cloud narrators</strong> — if you pick one of the six cloud narrators (Nova, Alloy, Fable, Onyx, Echo, Shimmer), the story text is sent to Nightshelf's voice server to be turned into audio, then discarded. It isn't stored, isn't used to identify you, and is never used for anything but reading to you.</li>
-      <li><strong>Tonight's Story</strong> — writing a custom bedtime story sends your chosen setting, tone, length, and the optional detail you typed to Nightshelf's story server so the story can be written; the request is discarded the same way. Please don't include personal details you wouldn't want sent.</li>
+      <li><strong>Cloud narrators</strong> — if you pick one of the six cloud narrators (Nova, Alloy, Fable, Onyx, Echo, Shimmer), the story text is sent to Nightshelf's voice server and on to <strong>OpenAI</strong> to be turned into audio, then discarded. It isn't stored, isn't used to identify you, and is never used for anything but reading to you.</li>
+      <li><strong>Tonight's Story</strong> — writing a custom bedtime story sends your chosen setting, tone, length, and the optional detail you typed to Nightshelf's story server and on to <strong>Anthropic</strong>, whose Claude model writes the story. If a cover picture is made for it, that request goes to <strong>OpenAI</strong>. Both are discarded the same way. Please don't include personal details you wouldn't want sent.</li>
+      <li><strong>The full list</strong> — two companies can receive your words: <strong>Anthropic</strong>, for writing stories, and <strong>OpenAI</strong>, for reading them aloud and drawing their covers. Neither receives your name, your email or any account — Nightshelf doesn't have those to give. Stories you read from the built-in library are never sent anywhere, because they're already on your phone.</li>
       <li><strong>Purchases</strong> — Nightshelf Pro is bought through Apple. Apple handles the transaction and shares only the receipt with the app, so it knows you're a subscriber. You can manage the subscription anytime in Settings → Apple ID → Subscriptions.</li>
     </ul>
 
