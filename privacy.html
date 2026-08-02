@@ -53,6 +53,13 @@
     li { margin-bottom:12px; }
     ul { padding-left: 22px; }
     strong { color:var(--fg); font-weight:600; }
+    /* Server hostnames are read as literals, not prose — a reviewer should be
+       able to tell where the words actually go at a glance. */
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .9em;
+      color: var(--fg); background: rgba(243,239,230,0.06);
+      border: 1px solid var(--border); border-radius: 5px; padding: 1px 6px;
+    }
     a { color: var(--accent-bright); text-decoration:none; }
     a:hover { color: var(--accent); }
     ::selection { background: rgba(232,177,92,0.28); color: var(--fg); }
@@ -69,29 +76,49 @@
   <div class="wrap">
     <div class="top"><img src="app-icon.png" alt="Nightshelf"><a href="index.html">Nightshelf</a></div>
     <h1>Privacy Policy</h1>
-    <div class="updated">Last updated: July 17, 2026</div>
+    <div class="updated">Last updated: August 2, 2026</div>
 
     <p>Nightshelf ("the app", "we", "us") is a bedtime-story app for iOS. It is built to know as little about you as possible. There is <strong>no account, no sign-in, no analytics SDK, no third-party tracker, and no advertising</strong>. This policy explains the little that's left.</p>
 
     <h2>What stays on your device</h2>
     <ul>
       <li><strong>Your shelf and progress</strong> — which stories you've opened, your place in each one, and your bedtime settings (voice, speed, sleep timer, ambient sound). These live on your device and, via Apple's private iCloud key-value storage, sync between your own devices. Nightshelf keeps no copy of them on any server.</li>
-      <li><strong>On-device narration</strong> — the built-in iOS voice synthesizes every word locally. Nothing leaves your phone.</li>
+      <li><strong>On-device narration</strong> — the built-in iOS voice synthesizes every word locally. Nothing leaves your phone, and it never needs a connection.</li>
     </ul>
 
     <h2>What leaves your device, and why</h2>
+    <p>Two features send <em>your words</em> off your phone. Both ask permission the first time you use them, and neither runs if you say no — not then, and not later. A third, smaller thing goes out without asking, and it gets its own bullet below rather than a footnote.</p>
     <ul>
-      <li><strong>Cloud narrators</strong> — if you pick one of the six cloud narrators (Nova, Alloy, Fable, Onyx, Echo, Shimmer), the story text is sent to Nightshelf's voice server and on to <strong>OpenAI</strong> to be turned into audio, then discarded. It isn't stored, isn't used to identify you, and is never used for anything but reading to you.</li>
-      <li><strong>Tonight's Story</strong> — writing a custom bedtime story sends your chosen setting, tone, length, and the optional detail you typed to Nightshelf's story server and on to <strong>Anthropic</strong>, whose Claude model writes the story. If a cover picture is made for it, that request goes to <strong>OpenAI</strong>. Both are discarded the same way. Please don't include personal details you wouldn't want sent.</li>
-      <li><strong>The full list</strong> — two companies can receive your words: <strong>Anthropic</strong>, for writing stories, and <strong>OpenAI</strong>, for reading them aloud and drawing their covers. Neither receives your name, your email or any account — Nightshelf doesn't have those to give. Stories you read from the built-in library are never sent anywhere, because they're already on your phone.</li>
-      <li><strong>Purchases</strong> — Nightshelf Pro is bought through Apple. Apple handles the transaction and shares only the receipt with the app, so it knows you're a subscriber. You can manage the subscription anytime in Settings → Apple ID → Subscriptions.</li>
+      <li><strong>Cloud narrators</strong> — if you pick one of the six cloud narrators (Nova, Alloy, Fable, Onyx, Echo, Shimmer), the paragraph being read is sent away to be turned into audio, and so is the paragraph after it, fetched early so the reading doesn't pause. <strong>This is just as true of a book from the built-in shelf as it is of a story you asked for</strong> — whatever is on the page is what gets sent.</li>
+      <li><strong>Tonight's Story</strong> — writing a custom bedtime story sends the setting, tone and length you chose, plus the optional detail you typed. If a cover picture is painted for it, the story's title is sent to be drawn. Please don't include personal details you wouldn't want sent.</li>
+      <li><strong>Auditioning a narrator — the one thing we don't ask about.</strong> Tapping ▶ beside a narrator's name sends a single fixed sample sentence, the same one for every listener, written into the app itself. It travels the same road as everything else and carries the anonymous device ID described below. We don't put it behind the permission because it cannot carry anything of yours — not the page you were reading, not a word you typed, not even which book you were in. It happens only when you tap ▶, and it is the only thing that can leave your phone after you have said no.</li>
     </ul>
+
+    <h2>Where it goes: three stops, not two</h2>
+    <p>Everything travels the same road.</p>
+    <ul>
+      <li><strong>Nightshelf's own server</strong> first — <code>storyvault-api.fly.dev</code>, which we run and which is hosted for us by <strong>Fly.io</strong> in the United States. Your words reach us and our host before they reach anyone else.</li>
+      <li><strong>OpenAI</strong> — turns text into audio for the cloud narrators, and paints story covers.</li>
+      <li><strong>Anthropic</strong> — its Claude model writes a Tonight's Story.</li>
+    </ul>
+    <p>What OpenAI and Anthropic do with text once it reaches them is governed by their own terms, not ours. Nightshelf holds no zero-retention agreement with either company, so we will not promise on their behalf that your words are discarded. What we can tell you is what <em>we</em> do, below.</p>
+
+    <h2>What our server keeps</h2>
+    <ul>
+      <li><strong>A device ID, deliberately.</strong> Nightshelf never asks for a name or an email, so there is none to send. Each phone does generate a random ID for itself on first launch and sends it with every request. It exists so the nightly limits can be counted per device rather than per network — otherwise everyone behind one router would share a single allowance. Counting requires keeping it: our server stores a scrambled (SHA-256) copy of that ID alongside the date, which feature was used, and a running number. No book title, no story, and none of your words are in that row. Rows more than 35 days old are deleted when the clean-up runs — but nothing runs it on a timer. It piggybacks on other traffic reaching the same server, so a row can sit there longer than 35 days, and we would rather say that than imply a schedule we haven't built.</li>
+      <li><strong>Audio, for a while.</strong> Narration we have already produced is kept in a shared cache, filed under a fingerprint of the paragraph rather than under any device — so the second listener to reach the first page of a book gets it without it being made again. The cache holds audio, is tied to no one, and is wiped whenever the server is updated.</li>
+      <li><strong>Ordinary logs.</strong> They record which feature ran, which narrator, and how many characters were spoken. They do not record the words.</li>
+      <li><strong>Your IP address, scrambled.</strong> Reaching our server shows it your IP, the way visiting a website does. We never store it as written: it is hashed the same way before being used to keep guests inside the free allowance. If a cloud narrator is selected, the app also pings the server once at launch to check it is awake; that ping carries no text.</li>
+    </ul>
+
+    <h2>Purchases</h2>
+    <p>Nightshelf Pro is bought through Apple. Apple handles the transaction and shares only the receipt with the app, so it knows you're a subscriber. You can manage the subscription anytime in Settings → Apple ID → Subscriptions.</p>
 
     <h2>Premium system voices</h2>
     <p>If you download Apple's Enhanced or Premium voices from iOS Settings → Accessibility → Spoken Content → Voices, that download and those voices are handled by iOS, not by Nightshelf.</p>
 
     <h2>Data sharing</h2>
-    <p>We do not sell data, we have no data to sell, and we do not share anything with advertisers.</p>
+    <p>We do not sell data and we do not share anything with advertisers. Nothing described above is used to build a profile of you or to advertise to you.</p>
 
     <h2>Children's privacy</h2>
     <p>Nightshelf is made for adults who read themselves to sleep, and it is rated 13+. It is not directed to children and is not part of Apple's Kids Category. The shelf is adult literary fiction — alongside the fairy tales there is a Mystery &amp; Gothic shelf holding <em>Dracula</em>, <em>Jekyll &amp; Hyde</em>, Poe and Lovecraft — so parents should treat it the way they would a bookshelf, not a children's app.</p>
