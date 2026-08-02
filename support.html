@@ -74,6 +74,10 @@
     <h2>Do I need a connection?</h2>
     <p>Not for the library. All 90 books ship inside the app, and the on-device narrator reads them with no network at all — a plane, a basement, or airplane mode are all fine. Only the six cloud narrators and writing a new Tonight's Story need a connection.</p>
 
+    <h2>Which books are free?</h2>
+    <p>Fifteen of the ninety — among them <em>The Wind in the Willows</em>, <em>Alice's Adventures in Wonderland</em>, <em>A Christmas Carol</em>, <em>Treasure Island</em>, <em>Peter Pan</em>, Grimm and Aesop. They stay free for as long as you keep the app, with no account and no ads. Nightshelf Pro opens the other seventy-five, plus the six cloud narrators, Tonight's Story, and sleep timers past an hour.</p>
+    <p>All ninety are <em>installed</em> either way — that is why the shelf works offline — but a locked book shows a padlock until you subscribe.</p>
+
     <h2>The narrator sounds flat</h2>
     <p>That is the on-device voice. Two ways to improve it: pick one of the six cloud narrators (Nova, Alloy, Fable, Onyx, Echo or Shimmer), or download a Premium system voice in iOS Settings → Accessibility → Spoken Content → Voices, which the on-device narrator will then use.</p>
 
@@ -84,7 +88,7 @@
     <p>Progress syncs through your own private iCloud storage, so both devices need to be signed into the same Apple ID with iCloud Drive on. There is no Nightshelf account and no copy on any server of ours — with iCloud off, progress simply stays on the one device.</p>
 
     <h2>Tonight's Story will not generate</h2>
-    <p>It needs a connection and takes a few seconds to write. If it keeps failing, check your connection and try a shorter prompt. The 90 bundled books are always available regardless.</p>
+    <p>It needs a connection and takes a few seconds to write. If it keeps failing, check your connection and try a shorter prompt. If the app says the nightly limit is reached, that is the daily cap — a few fresh stories a night, then it resets. Every book already on your shelf still reads aloud in the meantime.</p>
 
     <h2>Restoring Nightshelf Pro</h2>
     <p>Open the Pro screen and tap <strong>Restore Purchases</strong>. If your Apple ID has an active subscription it re-links in seconds — there is no account to log into.</p>
@@ -96,10 +100,12 @@
     <p>Email <a href="mailto:hypersageai@gmail.com?subject=Nightshelf%20bug%20report">hypersageai@gmail.com</a> with what you saw and what you were doing. Your device model and iOS version help a lot.</p>
 
     <h2>Where your data goes</h2>
-    <p>The full flow is in the <a href="privacy.html">privacy policy</a>. Short version: no account, no sign-in, no analytics, no third-party tracker, no advertising. Reading progress and settings live on your device and in your own private iCloud storage. Two companies can ever receive your words — <strong>Anthropic</strong>, whose Claude model writes a Tonight's Story, and <strong>OpenAI</strong>, which turns text into audio for the cloud narrators and draws story covers. Books from the built-in library are never sent anywhere, because they are already on your phone.</p>
+    <p>The full flow is in the <a href="privacy.html">privacy policy</a>, and it is worth reading — this summary is deliberately not the whole story. Short version: no account, no sign-in, no analytics, no third-party tracker, no advertising. Reading progress and settings live on your device and in your own private iCloud storage.</p>
+    <p>The on-device narrator speaks every word on the phone, so nothing leaves it. Two features do reach the network — choosing one of the six cloud narrators, and asking for a Tonight's Story — and the app asks permission the first time you use either. When they run, the text travels through <strong>three</strong> stops, not two: <strong>Nightshelf's own server</strong> first (hosted for us by Fly.io in the United States), then <strong>OpenAI</strong> to be turned into audio or to paint a cover, or <strong>Anthropic</strong> to write the story.</p>
+    <p>That applies to a book from the built-in shelf exactly as much as to a story you asked for — with a cloud narrator selected, whatever is on the page is what gets sent. Our server keeps a scrambled copy of a random per-device ID so nightly limits can be counted per device, and it keeps narration it has already made in a shared cache, filed under a fingerprint of the paragraph rather than under any device. Neither is tied to you: Nightshelf has no name, email or account to attach them to, because it never asks for one.</p>
 
     <h2>Reviewers and press</h2>
-    <p>Reach out at <a href="mailto:hypersageai@gmail.com?subject=Nightshelf%20review%20request">hypersageai@gmail.com</a>. Nightshelf is a bedtime reader built around 90 complete public-domain works from Project Gutenberg — Dracula, Sherlock Holmes, Grimm, Poe and others — narrated aloud, with a sleep timer and ambient sound.</p>
+    <p>Reach out at <a href="mailto:hypersageai@gmail.com?subject=Nightshelf%20review%20request">hypersageai@gmail.com</a>. Nightshelf is a bedtime reader built around 90 complete works in the public domain — Dracula, Sherlock Holmes, Grimm, Poe and others — narrated aloud, with a sleep timer and ambient sound. Our thanks to the volunteer transcribers who typed these texts back into readable form.</p>
 
     <a class="back" href="index.html">← Back to Nightshelf</a>
   </div>
