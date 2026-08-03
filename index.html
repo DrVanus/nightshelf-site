@@ -432,14 +432,21 @@
       <p class="fineprint">No account. No ads. Just goodnights.</p>
       <div class="stat-strip">
         <!-- Numbers here are read out of the app, not remembered. 86 =
-             Resources/Books/*.txt; 13 = SleepCatalog freeTier:true; 6 =
-             the OpenAI narrator set. The third stat used to read "∞ stories
-             you conjure" — the server caps Tonight's Story per device per
-             night, so an infinity glyph was selling something that does not
-             exist. A fresh story each night is the true shape. -->
+             `ls Resources/Books/*.txt | wc -l`; 13 = `grep -c 'freeTier: true'
+             SleepCatalog.swift` (73 false); 6 = the OpenAI narrator set. The
+             third stat used to read "∞ stories you conjure" — the server caps
+             Tonight's Story per device per night, so an infinity glyph was
+             selling something that does not exist. A fresh story each night is
+             the true shape.
+             It then read 15 while this very comment said 13, and while :497,
+             terms.html:83 and support.html:78 all said thirteen — the free
+             count is a purchase-relevant disclosure, so the loudest number on
+             the page was the only wrong one. Re-run the two commands above
+             before touching any of the four; a comment that states the source
+             does not keep the markup honest by itself. -->
         <div class="stat"><div class="num">86</div><div class="lbl">Complete classics</div></div>
         <div class="stat"><div class="num">6</div><div class="lbl">Warm narrators</div></div>
-        <div class="stat"><div class="num">15</div><div class="lbl">Free, no account</div></div>
+        <div class="stat"><div class="num">13</div><div class="lbl">Free, no account</div></div>
       </div>
     </div>
   </header>
